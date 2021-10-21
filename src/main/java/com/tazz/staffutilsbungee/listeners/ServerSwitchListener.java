@@ -51,7 +51,7 @@ public class ServerSwitchListener implements Listener {
                     // If they left the network, dont send a left to server message
                     if (from.equals(to)) return;
 
-                    loopPlayer.sendMessage(Utils.c(Prefix.staff() + "&9" + p.getName() + "&b left your server (to " + to + ")."));
+                    loopPlayer.sendMessage(Utils.c(Prefix.staff() + "&9" + p.getName() + "&b left your server (to " + to.getName() + ")."));
                 }
             }
         }
