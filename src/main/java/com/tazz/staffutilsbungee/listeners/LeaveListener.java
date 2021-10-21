@@ -1,6 +1,7 @@
 package com.tazz.staffutilsbungee.listeners;
 
-import com.tazz.staffutilsbungee.utils.ChatMessageUtils;
+import com.tazz.staffutilsbungee.utils.Prefix;
+import com.tazz.staffutilsbungee.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -16,15 +17,7 @@ public class LeaveListener implements Listener {
         ProxiedPlayer p = e.getPlayer();
         String server = p.getServer().getInfo().getName();
 
-        if(p.hasPermission("seabot.basic.admin"))
-            return;
-
-        if (p.hasPermission("seabot.basic.staff")) {
-            for (ProxiedPlayer online : ProxyServer.getInstance().getPlayers()) {
-                if (online.hasPermission("seabot.basic.staff")) {
-                    online.sendMessage(new TextComponent(ChatMessageUtils.getStaffPrefix() + ChatColor.BLUE + p.getName() + ChatColor.RED + " left " + ChatColor.AQUA + "the network (from " + server + ChatColor.AQUA + ")"));
-                }
-            }
-        }
+        if(!p.hasPermission("seabot.basic.staff")) return;
+        Utils.sendMessageToStaff(Utils.c(Prefix.staff() + "&9" + p.getName() + " &cleft &bthe network (from " + server + ")."));
     }
 }

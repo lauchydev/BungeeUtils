@@ -25,46 +25,35 @@ public class StaffTpCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
             sender.sendMessage(new TextComponent(ChatColor.RED + "You must be a player to execute this command."));
+            return;
         }
+
         if (!sender.hasPermission("seabot.basic.staff")) {
             sender.sendMessage(new TextComponent(ChatColor.RED + "No permission."));
+            return;
         }
+
         ProxiedPlayer p = (ProxiedPlayer) sender;
         if (args.length == 0) {
             sender.sendMessage(new TextComponent(ChatColor.RED + "Missing Argumenets! Usage: /stp [ign]"));
             return;
         }
-        if (args.length == 1) {
-            ProxiedPlayer from = (ProxiedPlayer)sender;
-            ProxiedPlayer to = ProxyServer.getInstance().getPlayer(args[0]);
-            if (args[0] != null && to == null) {
-                from.sendMessage(new TextComponent(ChatColor.RED + "This player is not online!"));
-                return;
-            }
 
-            if(from.getServer().getInfo() == to.getServer().getInfo()){
-                from.sendMessage(new TextComponent(ChatColor.RED + "You are already on " +  ChatColor.YELLOW + to.getName() + "'s Server."));
-                return;
-            }
+        ProxiedPlayer from = (ProxiedPlayer)sender;
+        ProxiedPlayer to = ProxyServer.getInstance().getPlayer(args[0]);
 
-            teleport(from, to);
-            from.sendMessage(new TextComponent(ChatColor.GREEN + "Teleporting to " +  ChatColor.YELLOW + to.getName() + "'s Server."));
+        if (args[0] != null && to == null) {
+            from.sendMessage(new TextComponent(ChatColor.RED + "This player is not online!"));
             return;
         }
-        if (args.length == 2) {
-            ProxiedPlayer from = ProxyServer.getInstance().getPlayer(args[0]);
-            ProxiedPlayer to = ProxyServer.getInstance().getPlayer(args[1]);
-            if (from == null) {
-                sender.sendMessage(new TextComponent(ChatColor.RED + args[0] + " is not online!"));
-                return;
-            }
-            if (to == null) {
-                sender.sendMessage(new TextComponent(ChatColor.RED + args[1] + " is not online!"));
-                return;
-            }
-            teleport(from, to);
-            sender.sendMessage(new TextComponent(ChatColor.YELLOW + from.getName() + ChatColor.GREEN + " has been teleported to " + ChatColor.YELLOW + to.getName() + ChatColor.GREEN + "."));
+
+        if(from.getServer().getInfo() == to.getServer().getInfo()){
+            from.sendMessage(new TextComponent(ChatColor.RED + "You are already on " +  ChatColor.YELLOW + to.getName() + "'s Server."));
+            return;
         }
+
+        teleport(from, to);
+        from.sendMessage(new TextComponent(ChatColor.GREEN + "Teleporting to " +  ChatColor.YELLOW + to.getName() + "'s Server."));
     }
 
     public static void teleport(ProxiedPlayer from, ProxiedPlayer to) {

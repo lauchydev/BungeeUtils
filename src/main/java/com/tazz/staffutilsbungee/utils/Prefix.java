@@ -2,16 +2,16 @@ package com.tazz.staffutilsbungee.utils;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class ChatMessageUtils {
-    public static String getStaffPrefix(){
+public class Prefix {
+    public static String staff(){
         return ChatColor.DARK_AQUA + "[Staff] ";
     }
 
-    public static String getReportPrefix(){
+    public static String report(){
         return ChatColor.RED + "[Report] ";
     }
 
-    public static String getHelpopPrefix(){
+    public static String helpop(){
         return ChatColor.DARK_PURPLE + "[Request] ";
     }
 }

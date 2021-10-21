@@ -9,46 +9,51 @@ public class CooldownUtils {
 
     private static HashMap<String, HashMap<UUID, Long>> cooldown = new HashMap();
 
-    public static void clearCooldowns()
-    {
-        cooldown.clear();
+    public static void clearCooldowns() { cooldown.clear(); }
+
+    public static HashMap<UUID, Long> getCdMap(String coolDownName){
+        return cooldown.get(coolDownName);
+    }
+
+    public static boolean hasCdMap(String coolDownName){
+        return cooldown.containsKey(coolDownName);
     }
 
     public static void createCooldown(String k) {
-        if (cooldown.containsKey(k)) {
+        if (hasCdMap(k)) {
             throw new IllegalArgumentException("This cooldown exists.");
         }
-        cooldown.put(k, new HashMap());
-    }
-
-    public static HashMap<UUID, Long> getCooldownMap(String k) {
-        if (cooldown.containsKey(k)) {
-            return (HashMap)cooldown.get(k);
-        }
-        return null;
+        cooldown.put(k, new HashMap<UUID, Long>());
     }
 
     public static void addCooldown(String k, ProxiedPlayer p, int seconds) {
-        if (!cooldown.containsKey(k)) {
-            throw new IllegalArgumentException(String.valueOf(k) + " does not exist");
+        if (!hasCdMap(k)) {
+            throw new IllegalArgumentException(k + " does not exist");
         }
         long next = System.currentTimeMillis() + seconds * 1000L;
-        ((HashMap)cooldown.get(k)).put(p.getUniqueId(), Long.valueOf(next));
+        getCdMap(k).put(p.getUniqueId(), next);
     }
 
     public static boolean isOnCooldown(String k, ProxiedPlayer p) {
-        return (cooldown.containsKey(k)) && (((HashMap)cooldown.get(k)).containsKey(p.getUniqueId())) && (System.currentTimeMillis() <= ((Long)((HashMap)cooldown.get(k)).get(p.getUniqueId())).longValue());
+        if(!hasCdMap(k)) return false;
+        HashMap<UUID, Long> cdMap = getCdMap(k);
+        if(!cdMap.containsKey(p.getUniqueId())) return false;
+
+        return System.currentTimeMillis() <= cdMap.get(p.getUniqueId());
     }
 
-    public static int getCooldownForPlayerInt(String k, ProxiedPlayer p) {
-        return (int)((((Long)((HashMap)cooldown.get(k)).get(p.getUniqueId())).longValue() - System.currentTimeMillis()) / 1000L);
+    public static int getCooldown(String coolDownName, ProxiedPlayer proxiedPlayer) { // Should always use meaningful names
+        HashMap<UUID, Long> cdMap = cooldown.get(coolDownName);
+        if(cdMap == null) return 0;
+
+        long cdInSeconds = cdMap.getOrDefault(proxiedPlayer.getUniqueId(), 0L);
+        cdInSeconds -= System.currentTimeMillis() / 1000L;
+
+        return (int) cdInSeconds;
     }
 
     public static void removeCooldown(String k, ProxiedPlayer p) {
-        if (!cooldown.containsKey(k)) {
-            throw new IllegalArgumentException(String.valueOf(k) + " does not exist");
-        }
-        ((HashMap)cooldown.get(k)).remove(p.getUniqueId());
+        cooldown.remove(k);
     }
 }
 
