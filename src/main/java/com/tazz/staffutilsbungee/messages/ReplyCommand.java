@@ -2,6 +2,7 @@ package com.tazz.staffutilsbungee.messages;
 
 import com.tazz.staffutilsbungee.StaffUtils;
 import com.tazz.staffutilsbungee.utils.Utils;
+import litebans.api.Database;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -10,14 +11,21 @@ import java.util.UUID;
 
 public class ReplyCommand extends Command {
     public ReplyCommandManager replyCommandManager;
-
     public ReplyCommand(StaffUtils utils) {
         super("reply", "", "r");
         this.replyCommandManager = utils.replyCommandManager;
     }
-
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
+            UUID uuid = ((ProxiedPlayer) sender).getUniqueId();
+            String ip = ((ProxiedPlayer) sender).getAddress().toString();
+            boolean muted = Database.get().isPlayerMuted(uuid, ip);
+
+            if (muted) {
+                sender.sendMessage(Utils.c("&cCannot send a message while muted!"));
+                return;
+            }
+
 
             if(args.length == 0){
                 sender.sendMessage(Utils.c("&cUsage: /reply (message)"));
