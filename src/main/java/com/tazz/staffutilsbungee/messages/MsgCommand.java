@@ -11,11 +11,11 @@ import java.util.UUID;
 
 public class MsgCommand extends Command {
 
-    public ReplyCommandManager replyCommandManager;
+    public MessageManager replyCommandManager;
 
     public MsgCommand(StaffUtils utils) {
         super("msg", "", "tell", "say");
-        this.replyCommandManager = utils.replyCommandManager;
+        this.replyCommandManager = utils.messageManager;
     }
 
     public void execute(CommandSender sender, String[] args) {
@@ -40,6 +40,11 @@ public class MsgCommand extends Command {
             if (messageReceiver == null) {
                 // Target player offline, send a message back to message sender
                 messageSender.sendMessage(Utils.c("&c" + args[0] + " is not online."));
+                return;
+            }
+
+            if(replyCommandManager.disabled.contains(messageReceiver.getUniqueId())){
+                messageSender.sendMessage(Utils.c("&cThis player has turned off private messaging."));
                 return;
             }
 

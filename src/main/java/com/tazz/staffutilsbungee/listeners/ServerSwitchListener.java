@@ -28,7 +28,7 @@ public class ServerSwitchListener implements Listener {
                     // Make sure not player themselves
                     if(p == online) continue;
 
-                    online.sendMessage(Utils.c(Prefix.staff() + "&9" + p.getName() + " &b joined your server (from " + from.getName() + ")."));
+                    online.sendMessage(Utils.c(Prefix.staff() + "&9" + p.getName() + " &bjoined your server. &7(from " + from.getName() + ")"));
                 }
             }
         }
@@ -51,7 +51,7 @@ public class ServerSwitchListener implements Listener {
                     // If they left the network, dont send a left to server message
                     if (from.equals(to)) return;
 
-                    loopPlayer.sendMessage(Utils.c(Prefix.staff() + "&9" + p.getName() + "&b left your server (to " + to.getName() + ")."));
+                    loopPlayer.sendMessage(Utils.c(Prefix.staff() + "&9" + p.getName() + " &bleft your server. &7(to " + to.getName() + ")"));
                 }
             }
         }

@@ -4,16 +4,18 @@ import com.tazz.staffutilsbungee.StaffUtils;
 import com.tazz.staffutilsbungee.utils.Utils;
 import litebans.api.Database;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
 import java.util.UUID;
 
 public class ReplyCommand extends Command {
-    public ReplyCommandManager replyCommandManager;
+    public MessageManager replyCommandManager;
+
     public ReplyCommand(StaffUtils utils) {
         super("reply", "", "r");
-        this.replyCommandManager = utils.replyCommandManager;
+        this.replyCommandManager = utils.messageManager;
     }
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
@@ -43,6 +45,12 @@ public class ReplyCommand extends Command {
             ProxiedPlayer receiver = StaffUtils.getInstance().getProxy().getPlayer(lastMessagedPlayer);
             if (receiver == null) {
                 messageSender.sendMessage(Utils.c("That player is no longer online!"));
+                replyCommandManager.removeLastMessage(messageSender);
+                return;
+            }
+
+            if(replyCommandManager.disabled.contains(receiver.getUniqueId())){
+                messageSender.sendMessage(Utils.c("&cThis player has turned off private messaging."));
                 replyCommandManager.removeLastMessage(messageSender);
                 return;
             }
