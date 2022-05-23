@@ -4,14 +4,16 @@ import com.tazz.staffutilsbungee.StaffUtils;
 import com.tazz.staffutilsbungee.utils.Utils;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ReplyCommandManager {
+public class MessageManager {
     // Receiver, Sender
     private final HashMap<UUID, UUID> lastMessageCache = new HashMap<>();
+    public final ArrayList<UUID> disabled = new ArrayList<>();
 
-    public ReplyCommandManager() {}
+    public MessageManager() {}
 
     public void setLastMessage(ProxiedPlayer receiver, ProxiedPlayer sender){
         lastMessageCache.put(receiver.getUniqueId(), sender.getUniqueId());

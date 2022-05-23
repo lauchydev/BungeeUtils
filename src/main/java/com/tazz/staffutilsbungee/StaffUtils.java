@@ -7,7 +7,8 @@ import com.tazz.staffutilsbungee.listeners.LeaveListener;
 import com.tazz.staffutilsbungee.listeners.ServerSwitchListener;
 import com.tazz.staffutilsbungee.messages.MsgCommand;
 import com.tazz.staffutilsbungee.messages.ReplyCommand;
-import com.tazz.staffutilsbungee.messages.ReplyCommandManager;
+import com.tazz.staffutilsbungee.messages.MessageManager;
+import com.tazz.staffutilsbungee.messages.ToggleMsgCommand;
 import com.tazz.staffutilsbungee.report.ReportCommand;
 import com.tazz.staffutilsbungee.report.ReportManager;
 import com.tazz.staffutilsbungee.staffchat.StaffChatCommand;
@@ -22,7 +23,7 @@ public class StaffUtils extends Plugin {
     public static StaffUtils instance;
     public HelpOpManager helpOpManager;
     public ReportManager reportManager;
-    public ReplyCommandManager replyCommandManager;
+    public MessageManager messageManager;
     public StaffChatManager staffChatManager;
 
     public static String channel = "DragSimStaff";
@@ -47,6 +48,7 @@ public class StaffUtils extends Plugin {
         getProxy().getPluginManager().registerCommand(this, new HelpOpCommand());
         getProxy().getPluginManager().registerCommand(this, new StaffTpCommand());
         getProxy().getPluginManager().registerCommand(this, new ReportCommand());
+        getProxy().getPluginManager().registerCommand(this, new ToggleMsgCommand(this));
         getProxy().getPluginManager().registerCommand(this, new StaffChatCommand());
     }
 
@@ -54,7 +56,7 @@ public class StaffUtils extends Plugin {
         this.helpOpManager = new HelpOpManager();
         this.reportManager = new ReportManager();
         this.staffChatManager = new StaffChatManager();
-        this.replyCommandManager = new ReplyCommandManager();
+        this.messageManager = new MessageManager();
     }
 
     public static String getChannel() {
