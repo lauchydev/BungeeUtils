@@ -2,12 +2,9 @@ package com.tazz.staffutilsbungee.messages;
 
 import com.tazz.staffutilsbungee.StaffUtils;
 import com.tazz.staffutilsbungee.utils.Utils;
-import litebans.api.Database;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
-
-import java.util.UUID;
 
 public class MsgCommand extends Command {
 
@@ -21,15 +18,6 @@ public class MsgCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer messageSender = (ProxiedPlayer) sender;
-
-            UUID uuid = (messageSender).getUniqueId();
-            String ip = (messageSender).getAddress().toString();
-            boolean muted = Database.get().isPlayerMuted(uuid, ip);
-
-            if (muted) {
-                sender.sendMessage(Utils.c("&cCannot send a message while muted!"));
-                return;
-            }
 
             if(args.length < 2){
                 messageSender.sendMessage(Utils.c("&cUsage: /msg (player) (message)"));
