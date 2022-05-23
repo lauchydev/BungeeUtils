@@ -47,8 +47,8 @@ public class StaffChatCommand extends Command {
 
         StringBuilder b = new StringBuilder();
         for (String arg : args) {
-            b.append(" ");
             b.append(arg);
+            b.append(" ");
         }
         String message = b.toString();
 
