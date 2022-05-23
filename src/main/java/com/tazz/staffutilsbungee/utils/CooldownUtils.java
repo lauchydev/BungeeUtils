@@ -30,7 +30,7 @@ public class CooldownUtils {
         if (!hasCdMap(k)) {
             throw new IllegalArgumentException(k + " does not exist");
         }
-        long next = System.currentTimeMillis() + (seconds * 1000L);
+        long next = System.currentTimeMillis() + seconds * 1000L;
         getCdMap(k).put(p.getUniqueId(), next);
     }
 
@@ -46,7 +46,8 @@ public class CooldownUtils {
         HashMap<UUID, Long> cdMap = cooldown.get(coolDownName);
         if(cdMap == null) return 0;
 
-        long cdInSeconds = (cdMap.getOrDefault(proxiedPlayer.getUniqueId(), 0L) - System.currentTimeMillis()) / 1000L;
+        long cdInSeconds = cdMap.getOrDefault(proxiedPlayer.getUniqueId(), 0L);
+        cdInSeconds -= System.currentTimeMillis() / 1000L;
 
         return (int) cdInSeconds;
     }

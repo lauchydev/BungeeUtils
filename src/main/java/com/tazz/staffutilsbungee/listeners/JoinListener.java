@@ -13,6 +13,6 @@ public class JoinListener implements Listener {
     public void onJoin(PostLoginEvent e) {
         ProxiedPlayer p = e.getPlayer();
         if(!p.hasPermission("seabot.basic.staff")) return;
-        Utils.sendMessageToStaff(Utils.c(Prefix.staff() + "&9" + p.getName() + "&a joined &bthe network. &7(Lobby-1)." ));
+        Utils.sendMessageToStaff(Utils.c(Prefix.staff() + "&9" + p.getName() + "&a joined &bthe network (Lobby-1)." ));
     }
 }

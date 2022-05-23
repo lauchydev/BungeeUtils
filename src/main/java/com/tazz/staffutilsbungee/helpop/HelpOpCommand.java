@@ -30,7 +30,7 @@ public class HelpOpCommand extends Command {
         }
 
         if (CooldownUtils.isOnCooldown("Help", player)) {
-            sender.sendMessage(Utils.c("&cYou are on cooldown for another " + CooldownUtils.getCooldown("Help", player) + " seconds!"));
+            sender.sendMessage(Utils.c("&cYou are on cooldown for another " + CooldownUtils.getCooldown("Help", player) + "seconds!"));
             return;
         }
 

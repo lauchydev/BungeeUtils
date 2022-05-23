@@ -14,6 +14,6 @@ public class StaffChatManager {
     public StaffChatManager() { }
 
     public void staffChatMessage(ProxiedPlayer p, String message) {
-        Utils.sendMessageToStaff(Utils.c("&7[" + ServerUtils.getServer(p) + "] " + Prefix.staff() + "&b" + p.getName() + "&7: &9" + message));
+        Utils.sendMessageToStaff(Utils.c("&7[ " + ServerUtils.getServer(p) + "] " + Prefix.staff() + "&b" + p.getName() + "&7: &9" + message));
     }
 }

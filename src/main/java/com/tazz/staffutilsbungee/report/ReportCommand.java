@@ -39,7 +39,7 @@ public class ReportCommand extends Command {
         }
 
         if (CooldownUtils.isOnCooldown("Report", reporter)) {
-            sender.sendMessage(Utils.c("&cYou are on cooldown for another " + CooldownUtils.getCooldown("Report", reporter) + " seconds!"));
+            sender.sendMessage(Utils.c("&cYou are on cooldown for another " + CooldownUtils.getCooldown("Report", reporter) + "seconds!"));
             return;
         }
 
