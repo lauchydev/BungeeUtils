@@ -18,6 +18,7 @@ public class LeaveListener implements Listener {
         String server = p.getServer().getInfo().getName();
 
         if(!p.hasPermission("seabot.basic.staff")) return;
+        if(p.hasPermission("seabot.basic.admin")) return;
         Utils.sendMessageToStaff(Utils.c(Prefix.staff() + "&9" + p.getName() + " &cleft &bthe network. &7(from " + server + ")"));
     }
 }

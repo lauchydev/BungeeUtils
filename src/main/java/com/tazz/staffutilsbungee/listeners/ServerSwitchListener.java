@@ -20,6 +20,7 @@ public class ServerSwitchListener implements Listener {
 
         // Checking if player switching server is staff
         if (!p.hasPermission("seabot.basic.staff")) return;
+        if (p.hasPermission("seabot.basic.admin")) return;
 
         for (ProxiedPlayer online : ProxyServer.getInstance().getPlayers()) {
             if (online.hasPermission("seabot.basic.staff")) {
@@ -42,6 +43,7 @@ public class ServerSwitchListener implements Listener {
 
         // Checking if player disconnecting is staff
         if (!p.hasPermission("seabot.basic.staff")) return;
+        if (p.hasPermission("seabot.basic.admin")) return;
 
         for (ProxiedPlayer loopPlayer : ProxyServer.getInstance().getPlayers()) {
             // Checking for all online staff
