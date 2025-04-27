@@ -1,5 +1,5 @@
-# BungeeCord Staff Utilities
-A core, essential BungeeCord plugin for Minecraft networks/ servers using BungeeCord.
+# Proxy Utilities
+A core, essential plugin for proxied servers with various utilities
 
 **Features**
 * Cross server staff chat
@@ -15,9 +15,3 @@ A core, essential BungeeCord plugin for Minecraft networks/ servers using Bungee
 **Building**
 * Install maven on your system
 * Type ```mvn package``` in the terminal
-
-**Credits**
-* Whoever made the CooldownUtils class
-
-**License**
-* This plugin is publically released, however you may not distribute it in any way to make a profit, or without giving me credit.
